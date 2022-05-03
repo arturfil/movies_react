@@ -2,7 +2,7 @@ import SidenavLink from "./SidenavLink";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ListAltIcon from "@mui/icons-material/ListAlt";
 
 export default function Sidenav() {
@@ -12,7 +12,7 @@ export default function Sidenav() {
       <SidenavLink link="/genres" text="Genres" Icon={SearchIcon} />
       <SidenavLink link="/addMovie" text="Add Movie" Icon={AddCircleIcon} />
       <SidenavLink link="list" text="Manage Movies" Icon={ListAltIcon} />
-      <SidenavLink link="mail" text="Messages" Icon={MailOutlineIcon} />
+      <SidenavLink link="/login" text="Login" Icon={AccountCircleIcon} />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import MoviesByGenrePage from "./features/movies/MoviesByGenrePage";
 import AddMoviePage from "./features/movies/AddMoviePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoginPage from "./features/account/LoginPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/addMovie" element={<AddMoviePage/>} />
             <Route path="/editMovie/:id" element={<AddMoviePage/>} />
             <Route path="/movie/:id" element={<SingleMoviePage />} />
+            <Route path="/login" element={<LoginPage/>} />
           </Routes>
         </Grid>
       </Grid>
