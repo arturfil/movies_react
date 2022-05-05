@@ -10,8 +10,25 @@ import AddMoviePage from "./features/movies/AddMoviePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoginPage from "./features/account/LoginPage";
+import { useEffect } from "react";
+import { setLoggedIn } from "./features/account/accountSlice";
+import { useAppDispatch } from "./store/store";
+import AuthRoute from "./components/routes/AuthRoute";
+
 
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    checkIfLoggedIn()
+  }, [])
+  
+  function checkIfLoggedIn() {
+    let token_str = localStorage.getItem(process.env.REACT_APP_JWT_STRING!)
+    if (token_str?.length! > 10) {
+      dispatch(setLoggedIn(true));
+    }
+  }
+
   return (
     <BrowserRouter>
       <ToastContainer theme="colored" position="bottom-right" />
@@ -37,8 +54,10 @@ function App() {
               path="/movies/genre/:genre_id"
               element={<MoviesByGenrePage />}
             />
-            <Route path="/addMovie" element={<AddMoviePage/>} />
-            <Route path="/editMovie/:id" element={<AddMoviePage/>} />
+            <Route element={<AuthRoute/>}>
+              <Route path="/addMovie" element={<AddMoviePage/>} />
+              <Route path="/editMovie/:id" element={<AddMoviePage/>} />
+            </Route>
             <Route path="/movie/:id" element={<SingleMoviePage />} />
             <Route path="/login" element={<LoginPage/>} />
           </Routes>

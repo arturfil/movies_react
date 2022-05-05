@@ -18,18 +18,19 @@ import DialogBox from "../../components/dialogbox/DialogBox";
 
 export default function SingleMovie() {
   const { singleMovie } = useAppSelector((state) => state.movies);
+  const { loggedIn } = useAppSelector((state) => state.account);
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => setOpen(true);
-  
+
   const handleDelete = () => {
     dispatch(deleteMovie(id));
     navigate("/");
     setOpen(false);
-  }
+  };
 
   useEffect(() => {
     dispatch(getSingleMovie(id));
@@ -56,19 +57,23 @@ export default function SingleMovie() {
       </Grid>
       <h2>{singleMovie?.title}</h2>
       <h4>{singleMovie?.description}</h4>
-      <Button
-        variant="contained"
-        component={Link}
-        to={`/editMovie/${singleMovie?.id}`}
-      >
-        Edit Movie
-      </Button>
-      <DialogBox
-        handleClickOpen={handleClickOpen}
-        open={open}
-        setOpen={setOpen}
-        handleClose={handleDelete}
-      />
+      {loggedIn && (
+        <>
+          <Button
+            variant="contained"
+            component={Link}
+            to={`/editMovie/${singleMovie?.id}`}
+          >
+            Edit Movie
+          </Button>
+          <DialogBox
+            handleClickOpen={handleClickOpen}
+            open={open}
+            setOpen={setOpen}
+            handleClose={handleDelete}
+          />
+        </>
+      )}
       {singleMovie?.genres && Object.keys(singleMovie.genres).length > 0 && (
         <>
           <h2>Genres</h2>
