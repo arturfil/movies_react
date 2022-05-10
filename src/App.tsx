@@ -18,6 +18,7 @@ import AuthRoute from "./components/routes/AuthRoute";
 
 function App() {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     checkIfLoggedIn()
   }, [])

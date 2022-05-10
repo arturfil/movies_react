@@ -12,11 +12,9 @@ const agent = axios.create({baseURL});
 agent.interceptors.request.use(async (config) => {
     try {
         const jwt_data: string|null = await localStorage.getItem(jwt_string!)
-        console.log("HERE", jwt_data);
-        let header = 'Authorization'
         if (jwt_data) config.headers!.Authorization = `Bearer ${jwt_data}`;
-    } catch (error) {
-        console.log(error);
+    } catch (error:any) {
+        console.log("Here", error.data.message);
     }
     return config;
 });

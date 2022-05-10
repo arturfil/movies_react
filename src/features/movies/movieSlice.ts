@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import agent from "../../api/agent";
+import agent, { jwt_string } from "../../api/agent";
 import { Movie } from "../../interfaces/Movie";
 
 interface MovieState {
@@ -24,6 +24,9 @@ export const getMovies = createAsyncThunk<Movie[]>(
             const response = await agent.get("/movies")
             return response.data.movies;
         } catch (error:any) {
+            let msg = error.response.data.error.message;
+            if (msg === 'Token expired')
+                localStorage.removeItem(jwt_string!);
             return thunkAPI.rejectWithValue({error: error.message});
         }
     }
